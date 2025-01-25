@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentResults" Version="3.16.0" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Models\Warehouses\Requests\" />
+    <Folder Include="Models\Warehouses\Responses\" />
+  </ItemGroup>
+
+</Project>
