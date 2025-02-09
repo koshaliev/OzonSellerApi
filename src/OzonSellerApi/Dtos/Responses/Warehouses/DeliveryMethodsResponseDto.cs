@@ -50,7 +50,7 @@ public class DeliveryMethodsResponseDto
         /// </summary>
         [JsonPropertyName("status")]
         [JsonConverter(typeof(DeliveryMethodStatusJsonConverter))]
-        public DeliveryMethodStatus Status { get; set; }
+        public DeliveryMethodStatus? Status { get; set; }
 
         /// <summary>
         /// Время, до которого продавцу нужно собрать заказ.

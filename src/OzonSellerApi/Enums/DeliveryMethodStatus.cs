@@ -20,7 +20,7 @@ public class DeliveryMethodStatus
 
     public override string ToString() => Value;
 
-    public static DeliveryMethodStatus FromString(string value)
+    public static DeliveryMethodStatus FromString(string? value)
     {
         if (string.IsNullOrEmpty(value)) return None;
 
