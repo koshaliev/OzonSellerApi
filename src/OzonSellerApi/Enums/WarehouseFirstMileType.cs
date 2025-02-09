@@ -4,10 +4,11 @@ namespace OzonSellerApi.Enums;
 /// <summary>
 /// Тип первой мили.
 /// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<WarehouseFirstMileType>))]
 public enum WarehouseFirstMileType
 {
-    [JsonPropertyName("DropOff")]
+    [JsonStringEnumMemberName("DropOff")]
     DropOff,
-    [JsonPropertyName("Pickup")]
+    [JsonStringEnumMemberName("Pickup")]
     Pickup
 }

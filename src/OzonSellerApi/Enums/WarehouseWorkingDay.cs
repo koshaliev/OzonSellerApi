@@ -4,20 +4,21 @@ namespace OzonSellerApi.Enums;
 /// <summary>
 /// Рабочие дни склада. При сериализации будут представлены как числа от 1 до 7.
 /// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<WarehouseWorkingDay>))]
 public enum WarehouseWorkingDay
 {
-    [JsonPropertyName("1")]
+    [JsonStringEnumMemberName("1")]
     Monday,
-    [JsonPropertyName("2")]
+    [JsonStringEnumMemberName("2")]
     Tuesday,
-    [JsonPropertyName("3")]
+    [JsonStringEnumMemberName("3")]
     Wednesday,
-    [JsonPropertyName("4")]
+    [JsonStringEnumMemberName("4")]
     Thursday,
-    [JsonPropertyName("5")]
+    [JsonStringEnumMemberName("5")]
     Friday,
-    [JsonPropertyName("6")]
+    [JsonStringEnumMemberName("6")]
     Saturday,
-    [JsonPropertyName("7")]
+    [JsonStringEnumMemberName("7")]
     Sunday
 }

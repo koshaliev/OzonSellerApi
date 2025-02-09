@@ -1,16 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{367397EC-935E-4728-8DFD-756BAE7DB854}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonSellerApi", "src\OzonSellerApi\OzonSellerApi.csproj", "{480C49BB-1A5A-422A-AC2B-B179DDB6711F}"
 EndProject
 Global
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -32,6 +29,9 @@ Global
 		{480C49BB-1A5A-422A-AC2B-B179DDB6711F}.Release|x64.Build.0 = Release|Any CPU
 		{480C49BB-1A5A-422A-AC2B-B179DDB6711F}.Release|x86.ActiveCfg = Release|Any CPU
 		{480C49BB-1A5A-422A-AC2B-B179DDB6711F}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{480C49BB-1A5A-422A-AC2B-B179DDB6711F} = {367397EC-935E-4728-8DFD-756BAE7DB854}

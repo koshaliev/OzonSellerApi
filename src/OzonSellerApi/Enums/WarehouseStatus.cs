@@ -1,26 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace OzonSellerApi.Enums;
 /// <summary>
 /// Возможные статусы склада.
 /// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<WarehouseStatus>))]
 public enum WarehouseStatus
 {
-    [JsonPropertyName("new")]
+    /// <summary>
+    /// Активируется.
+    /// </summary>
+    [JsonStringEnumMemberName("new")]
     New,
-    [JsonPropertyName("created")]
+
+    /// <summary>
+    /// Активный.
+    /// </summary
+    [JsonStringEnumMemberName("created")]
     Created,
-    [JsonPropertyName("disabled")]
+
+    /// <summary>
+    /// В архиве.
+    /// </summary
+    [JsonStringEnumMemberName("disabled")]
     Disabled,
-    [JsonPropertyName("blocked")]
+
+    /// <summary>
+    /// Заблокирован.
+    /// </summary
+    [JsonStringEnumMemberName("blocked")]
     Blocked,
-    [JsonPropertyName("disabled_due_to_limit")]
+
+    /// <summary>
+    /// На паузе.
+    /// </summary
+    [JsonStringEnumMemberName("disabled_due_to_limit")]
     DisabledDueToLimit,
-    [JsonPropertyName("error")]
+
+    /// <summary>
+    /// Ошибка.
+    /// </summary
+    [JsonStringEnumMemberName("error")]
     Error
 }

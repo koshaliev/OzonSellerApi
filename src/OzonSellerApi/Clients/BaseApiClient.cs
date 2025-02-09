@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using OzonSellerApi.Dtos.Responses.Common;
 using OzonSellerApi.Errors;
 using OzonSellerApi.Extensions;
 using System.Net.Http.Json;
@@ -34,15 +35,9 @@ internal class BaseApiClient
     /// <returns>
     /// Возвращает объект типа <see cref="Result{TResponseDto}"/>.
     /// <list type="bullet">
-    ///     <item>
-    ///         <description>В случае успеха возвращает данные типа <typeparamref name="TResponseDto"/>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <description>При неудачном запросе, <c>Result</c> содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description>
-    ///     </item>
-    ///     <item>
-    ///         <description>При ошибки десериализации ответа, <c>Result</c> содержит <see cref="JsonDeserializationResultError"/> и <see cref="ApiResultError"/> с пустым <c>ResponseContent</c></description>
-    ///     </item>
+    /// <item><description>В случае успеха возвращает данные типа <typeparamref name="TResponseDto"/>.</description></item>
+    /// <item><description>При неудачном запросе, <c>PostingFbsUnfulfilledListResponseResult</c> содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description></item>
+    /// <item><description>При ошибки десериализации ответа, <c>PostingFbsUnfulfilledListResponseResult</c> содержит <see cref="JsonDeserializationResultError"/> и <see cref="ApiResultError"/> с пустым <c>ResponseContent</c></description></item>
     /// </list>
     /// </returns>
     protected async Task<Result<TResponseDto>> PostRequestAsync<TRequestDto, TResponseDto>(string endpoint, TRequestDto? requestDto, CancellationToken cancellationToken)
@@ -77,15 +72,9 @@ internal class BaseApiClient
     /// <returns>
     /// Возвращает объект типа <see cref="Result{TResponseDto}"/>.
     /// <list type="bullet">
-    ///     <item>
-    ///         <description>В случае успеха возвращает данные типа <typeparamref name="TResponseDto"/>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <description>При неудачном запросе, <c>Result</c> содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description>
-    ///     </item>
-    ///     <item>
-    ///         <description>При ошибки десериализации ответа, <c>Result</c> содержит <see cref="JsonDeserializationResultError"/> и <see cref="ApiResultError"/> с пустым <c>ResponseContent</c></description>
-    ///     </item>
+    /// <item><description>В случае успеха возвращает данные типа <typeparamref name="TResponseDto"/>.</description></item>
+    /// <item><description>При неудачном запросе, <c>PostingFbsUnfulfilledListResponseResult</c> содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description></item>
+    /// <item> <description>При ошибки десериализации ответа, <c>PostingFbsUnfulfilledListResponseResult</c> содержит <see cref="JsonDeserializationResultError"/> и <see cref="ApiResultError"/> с пустым <c>ResponseContent</c></description></item>
     /// </list>
     /// </returns>
     protected async Task<Result<TResponseDto>> PostRequestWithEmptyContent<TResponseDto>(string endpoint, CancellationToken cancellationToken)

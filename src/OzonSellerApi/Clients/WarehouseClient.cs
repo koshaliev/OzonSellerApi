@@ -1,6 +1,6 @@
 ﻿using FluentResults;
-using OzonSellerApi.Dto.Requests.Warehouses;
-using OzonSellerApi.Dto.Responses.Warehouses;
+using OzonSellerApi.Dtos.Requests.Warehouses;
+using OzonSellerApi.Dtos.Responses.Warehouses;
 using OzonSellerApi.Extensions;
 
 namespace OzonSellerApi.Clients;
@@ -24,10 +24,10 @@ internal class WarehouseClient : BaseApiClient
     ///         <description>В случае успеха возвращает данные типа <typeparamref name="WarehousesResponseDto"/>.</description>
     ///     </item>
     ///     <item>
-    ///         <description>При неудачном запросе, <c>Result</c> содержит ошибку <typeparamref name="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description>
+    ///         <description>При неудачном запросе, <c>PostingFbsUnfulfilledListResponseResult</c> содержит ошибку <typeparamref name="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description>
     ///     </item>
     ///     <item>
-    ///         <description>При ошибки десериализации ответа, <c>Result</c> содержит <typeparamref name="JsonDeserializationResultError"/> и <typeparamref name="ApiResultError"/> с пустым <c>ResponseContent</c></description>
+    ///         <description>При ошибки десериализации ответа, <c>PostingFbsUnfulfilledListResponseResult</c> содержит <typeparamref name="JsonDeserializationResultError"/> и <typeparamref name="ApiResultError"/> с пустым <c>ResponseContent</c></description>
     ///     </item>
     /// </list>
     /// </returns>
@@ -49,10 +49,10 @@ internal class WarehouseClient : BaseApiClient
     ///         <description>В случае успеха возвращает данные типа <typeparamref name="WarehousesResponseDto"/>.</description>
     ///     </item>
     ///     <item>
-    ///         <description>При неудачном запросе, <c>Result</c> содержит ошибку <typeparamref name="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description>
+    ///         <description>При неудачном запросе, <c>PostingFbsUnfulfilledListResponseResult</c> содержит ошибку <typeparamref name="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description>
     ///     </item>
     ///     <item>
-    ///         <description>При ошибки десериализации ответа, <c>Result</c> содержит <typeparamref name="JsonDeserializationResultError"/> и <typeparamref name="ApiResultError"/> с пустым <c>ResponseContent</c></description>
+    ///         <description>При ошибки десериализации ответа, <c>PostingFbsUnfulfilledListResponseResult</c> содержит <typeparamref name="JsonDeserializationResultError"/> и <typeparamref name="ApiResultError"/> с пустым <c>ResponseContent</c></description>
     ///     </item>
     /// </list>
     /// </returns>

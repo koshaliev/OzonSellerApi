@@ -1,14 +1,17 @@
 ﻿using OzonSellerApi.Enums;
+using OzonSellerApi.Utils;
 using System.Text.Json.Serialization;
 
-namespace OzonSellerApi.Dto.Responses.Warehouses;
+namespace OzonSellerApi.Dtos.Responses.Warehouses;
+
+// created: 24.01.2025
 public class DeliveryMethodsResponseDto
 {
     /// <summary>
     /// Список методов доставки склада
     /// </summary>
     [JsonPropertyName("result")]
-    public List<DeliveryMethod> DeliveryMethods { get; set; } = [];
+    public List<DeliveryMethod> Result { get; set; } = [];
 
     /// <summary>
     /// Признак, что в запросе вернулась только часть методов доставки:
@@ -46,6 +49,7 @@ public class DeliveryMethodsResponseDto
         /// Статус метода доставки
         /// </summary>
         [JsonPropertyName("status")]
+        [JsonConverter(typeof(DeliveryMethodStatusJsonConverter))]
         public DeliveryMethodStatus Status { get; set; }
 
         /// <summary>

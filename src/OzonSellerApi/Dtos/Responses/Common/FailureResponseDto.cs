@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OzonSellerApi.Dto.Responses.Common;
+namespace OzonSellerApi.Dtos.Responses.Common;
 public record FailureResponseDto
 {
     /// <summary>

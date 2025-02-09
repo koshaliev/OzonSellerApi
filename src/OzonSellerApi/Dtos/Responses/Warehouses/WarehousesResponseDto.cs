@@ -1,11 +1,13 @@
 ﻿using OzonSellerApi.Enums;
 using System.Text.Json.Serialization;
 
-namespace OzonSellerApi.Dto.Responses.Warehouses;
+namespace OzonSellerApi.Dtos.Responses.Warehouses;
+
+// created: 24.01.2025
 public class WarehousesResponseDto
 {
     [JsonPropertyName("result")]
-    public List<Warehouse> Warehouses { get; set; } = [];
+    public List<Warehouse> Result { get; set; } = [];
 
     public class Warehouse
     {
@@ -103,7 +105,7 @@ public class WarehousesResponseDto
         /// Рабочие дни склада.
         /// </summary>
         [JsonPropertyName("working_days")]
-        public List<WarehouseWorkingDay> WorkingDaysList { get; set; } = [];
+        public List<WarehouseWorkingDay> WorkingDays { get; set; } = [];
 
         /// <summary>
         /// Информация по первой миле FBS.
@@ -136,4 +138,3 @@ public class WarehousesResponseDto
         }
     }
 }
-

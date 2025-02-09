@@ -1,7 +1,8 @@
 ﻿using OzonSellerApi.Enums;
+using OzonSellerApi.Utils;
 using System.Text.Json.Serialization;
 
-namespace OzonSellerApi.Dto.Requests.Warehouses;
+namespace OzonSellerApi.Dtos.Requests.Warehouses;
 public class DeliveryMethodsRequestDto
 {
     /// <summary>
@@ -14,13 +15,13 @@ public class DeliveryMethodsRequestDto
     /// Количество элементов в ответе. Максимум — 50, минимум — 1.
     /// </summary>
     [JsonPropertyName("limit")]
-    public required long Limit { get; set; }
+    public required long Limit { get; set; } = 1;
 
     /// <summary>
     /// Количество элементов, которое будет пропущено в ответе. Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
     /// </summary>
     [JsonPropertyName("offset")]
-    public required long Offset { get; set; }
+    public long Offset { get; set; }
 }
 
 /// <summary>
@@ -38,10 +39,11 @@ public class DeliveryMethodsRequestDtoFilter
     /// Статус метода доставки:
     /// </summary>
     [JsonPropertyName("status")]
-    public DeliveryMethodStatus Status { get; set; }
+    [JsonConverter(typeof(DeliveryMethodStatusJsonConverter))]
+    public DeliveryMethodStatus Status { get; set; } = DeliveryMethodStatus.None;
 
     /// <summary>
-    /// Идентификатор склада.
+    /// Идентификатор склада, полученный из метода <see cref="Clients.WarehouseClient.GetWarehouses(CancellationToken)"/>.
     /// </summary>
     [JsonPropertyName("warehouse_id")]
     public long WarehouseId { get; set; }

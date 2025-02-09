@@ -1,39 +1,36 @@
-﻿using System.Text.Json.Serialization;
-
-namespace OzonSellerApi.Enums;
+﻿namespace OzonSellerApi.Enums;
 
 /// <summary>
 /// Статусы метода доставки
 /// </summary>
-public enum DeliveryMethodStatus
+public class DeliveryMethodStatus
 {
-    /// <summary>
-    /// Создан.
-    /// </summary>
-    [JsonPropertyName("NEW")]
-    New,
+    public static DeliveryMethodStatus New { get; } = new DeliveryMethodStatus("NEW");
+    public static DeliveryMethodStatus Edited { get; } = new DeliveryMethodStatus("EDITED");
+    public static DeliveryMethodStatus Active { get; } = new DeliveryMethodStatus("ACTIVE");
+    public static DeliveryMethodStatus Disabled { get; } = new DeliveryMethodStatus("DISABLED");
+    public static DeliveryMethodStatus None { get; } = new DeliveryMethodStatus("");
 
-    /// <summary>
-    /// Редактируется.
-    /// </summary>
-    [JsonPropertyName("EDITED")]
-    Edited,
+    public string Value { get; }
 
-    /// <summary>
-    /// Активный.
-    /// </summary>
-    [JsonPropertyName("ACTIVE")]
-    Active,
+    public DeliveryMethodStatus(string value)
+    {
+        Value = value;
+    }
 
-    /// <summary>
-    /// Неактивный.
-    /// </summary>
-    [JsonPropertyName("DISABLED")]
-    Disabled,
+    public override string ToString() => Value;
 
-    /// <summary>
-    /// Отсутствие (для фильтра в запросе).
-    /// </summary>
-    [JsonPropertyName("")]
-    None
+    public static DeliveryMethodStatus FromString(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return None;
+
+        switch (value)
+        {
+            case "NEW": return New;
+            case "EDITED": return Edited;
+            case "ACTIVE": return Active;
+            case "DISABLED": return Disabled;
+            default: return None;
+        }
+    }
 }
