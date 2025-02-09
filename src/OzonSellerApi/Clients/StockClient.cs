@@ -7,7 +7,7 @@ namespace OzonSellerApi.Clients;
 /// <summary>
 /// Клиент для взаимодействия с остатками товара на складаха.
 /// </summary>
-internal class StockClient : BaseApiClient
+public class StockClient : BaseApiClient
 {
     // TODO: 29.01.2025 - проверить десериализацию всех ответов у методов
 

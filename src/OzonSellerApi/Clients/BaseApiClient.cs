@@ -9,7 +9,7 @@ namespace OzonSellerApi.Clients;
 /// Базовый клиент для работы с Ozon Seller API.
 /// <para>Конструктор устанавливает значения для заголовков запроса <c>Client-Id</c> и <c>Api-Key</c> на основе <seealso cref="ApiSettings"/>.</para>
 /// </summary>
-internal class BaseApiClient
+public class BaseApiClient
 {
     protected readonly HttpClient _httpClient;
     private readonly ApiSettings _apiSettings;

@@ -4,7 +4,7 @@ using OzonSellerApi.Dtos.Responses.Postings;
 using OzonSellerApi.Extensions;
 
 namespace OzonSellerApi.Clients;
-internal class PostingClient : BaseApiClient
+public class PostingClient : BaseApiClient
 {
     public PostingClient(HttpClient httpClient, ApiSettings apiSettings) : base(httpClient, apiSettings)
     {

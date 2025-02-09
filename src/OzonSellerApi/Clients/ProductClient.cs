@@ -7,7 +7,7 @@ namespace OzonSellerApi.Clients;
 /// <summary>
 /// Клиент для взаимодействия с товарами.
 /// </summary>
-internal class ProductClient : BaseApiClient
+public class ProductClient : BaseApiClient
 {
     public ProductClient(HttpClient httpClient, ApiSettings apiSettings) : base(httpClient, apiSettings)
     {

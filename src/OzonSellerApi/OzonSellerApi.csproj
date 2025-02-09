@@ -4,10 +4,17 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Authors>koshaliev</Authors>
+    <Description>Библиотека для базового взаимодействия с Ozon Seller API.</Description>
+    <PackageId>OzonSellerApi</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageVersion>1.0.0-beta</PackageVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentResults" Version="3.16.0" />
-    <PackageReference Include="Polly" Version="8.5.1" />
+      <None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 </Project>
