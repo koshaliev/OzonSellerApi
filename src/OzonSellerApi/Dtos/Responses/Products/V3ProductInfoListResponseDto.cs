@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace OzonSellerApi.Dtos.Responses.Products;
 
 // created: 26.01.2025
-public class ProductInfoListResponseDto
+public class V3ProductInfoListResponseDto
 {
     /// <summary>
     /// Массив данных.

@@ -3,7 +3,7 @@
 namespace OzonSellerApi.Dtos.Responses.Products;
 
 // created: 25.01.2025
-public class ProductListResponseDto
+public class V3ProductListResponseDto
 {
     /// <summary>
     /// Список товаров.

@@ -1,10 +1,9 @@
-﻿using OzonSellerApi.Utils;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace OzonSellerApi.Dtos.Requests.Products;
 
 // created: 26.01.2025
-public class ProductInfoListRequestDto
+public class V3ProductInfoListRequestDto
 {
     /// <summary>
     /// Идентификатор товара в системе продавца — артикул.

@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace OzonSellerApi.Dtos.Requests.Prices;
 
 // created: 29.01.2025
-public class ProductInfoPricesRequestDto
+public class V5ProductInfoPricesRequestDto
 {
     /// <summary>
     /// Указатель для выборки следующих данных.

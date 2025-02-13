@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace OzonSellerApi.Dtos.Responses.Warehouses;
 
 // created: 24.01.2025
-public class WarehousesResponseDto
+public class V1WarehousesResponseDto
 {
     [JsonPropertyName("result")]
     public List<Warehouse> Result { get; set; } = [];

@@ -5,13 +5,13 @@ using System.Text.Json.Serialization;
 namespace OzonSellerApi.Dtos.Requests.Products;
 
 // created: 25.01.2025
-public class ProductListRequestDto
+public class V3ProductListRequestDto
 {
     /// <summary>
     /// Фильтр по товарам.
     /// </summary>
     [JsonPropertyName("filter")]
-    public required ProductListRequestDtoFilter Filter { get; set; }
+    public required V3ProductListRequestDtoFilter Filter { get; set; }
 
     /// <summary>
     /// Идентификатор последнего значения на странице. При первом запросе оставьте это поле пустым.
@@ -27,7 +27,7 @@ public class ProductListRequestDto
     public long Limit { get; set; } = 1;
 }
 
-public class ProductListRequestDtoFilter
+public class V3ProductListRequestDtoFilter
 {
     /// <summary>
     /// Фильтр по параметру <c>offer_id</c>. Вы можете передавать список значений.

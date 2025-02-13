@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using static OzonSellerApi.Dtos.Responses.Postings.FinancialData.FinancialDataProduct;
 
 namespace OzonSellerApi.Dtos.Responses.Postings;
-public class PostingFbsUnfulfilledListResponseDto
+public class V3PostingFbsUnfulfilledListResponseDto
 {
     [JsonPropertyName("result")]
     public PostingFbsUnfulfilledListResponseResult? Result { get; set; }

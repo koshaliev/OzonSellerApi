@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace OzonSellerApi.Dtos.Responses.Warehouses;
 
 // created: 24.01.2025
-public class DeliveryMethodsResponseDto
+public class V1DeliveryMethodsResponseDto
 {
     /// <summary>
     /// Список методов доставки склада

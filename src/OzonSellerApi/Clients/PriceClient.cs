@@ -11,9 +11,7 @@ public class PriceClient : BaseApiClient
 {
     // TODO: 29.01.2025 - проверить десериализацию всех ответов у методов
 
-    public PriceClient(HttpClient httpClient, ApiSettings apiSettings) : base(httpClient, apiSettings)
-    {
-    }
+    public PriceClient(HttpClient httpClient, ApiSettings apiSettings) : base(httpClient, apiSettings) { }
 
     /// <summary>
     /// Позволяет изменить цену одного или нескольких товаров. Цену каждого товара можно обновлять не больше 10 раз в час. Чтобы сбросить <c>OldPrice</c> (<c>old_price</c>), поставьте <c>0</c> у этого параметра.
@@ -24,17 +22,17 @@ public class PriceClient : BaseApiClient
     /// <param name=""></param>
     /// <param name="cancellationToken"></param>
     /// <returns>
-    /// Возвращает объект типа <see cref="Result{ProductImportPricesResponseDto}"/>.
+    /// Возвращает объект типа <see cref="Result{V1ProductImportPricesResponseDto}"/>.
     /// <list type="bullet">
-    /// <item><description>В случае успеха возвращает данные типа <typeparamref name="ProductImportPricesResponseDto"/>.</description></item>
-    /// <item><description>При неудачном запросе, <c>PostingFbsUnfulfilledListResponseResult</c> содержит ошибку <typeparamref name="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description></item>
-    /// <item><description>При ошибки десериализации ответа, <c>PostingFbsUnfulfilledListResponseResult</c> содержит <typeparamref name="JsonDeserializationResultError"/> и <typeparamref name="ApiResultError"/> с пустым <c>ResponseContent</c></description></item>
+    /// <item><description>В случае успеха возвращает данные типа <typeparamref name="V1ProductImportPricesResponseDto"/>.</description></item>
+    /// <item><description>При неудачном запросе, результат содержит ошибку <typeparamref name="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description></item>
+    /// <item><description>При ошибки десериализации ответа, результат содержит <typeparamref name="JsonDeserializationResultError"/> и <typeparamref name="ApiResultError"/> с пустым <c>ResponseContent</c></description></item>
     /// </list>
     /// </returns>
-    public async Task<Result<ProductImportPricesResponseDto>> UpdateProductPrices(ProductImportPricesRequestDto productImportPricesRequestDto, CancellationToken cancellationToken = default)
+    public async Task<Result<V1ProductImportPricesResponseDto>> UpdateProductPrices(V1ProductImportPricesRequestDto productImportPricesRequestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v1/product/import/prices";
-        var result = await PostRequestAsync<ProductImportPricesRequestDto, ProductImportPricesResponseDto>(endpoint, productImportPricesRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V1ProductImportPricesRequestDto, V1ProductImportPricesResponseDto>(endpoint, productImportPricesRequestDto, cancellationToken);
         return result;
     }
 
@@ -48,14 +46,14 @@ public class PriceClient : BaseApiClient
     /// Возвращает объект типа <see cref="Result{ProductInfoPricesResponseDto}"/>.
     /// <list type="bullet">
     /// <item><description>В случае успеха возвращает данные типа <typeparamref name="ProductInfoPricesResponseDto"/>.</description></item>
-    /// <item><description>При неудачном запросе, <c>PostingFbsUnfulfilledListResponseResult</c> содержит ошибку <typeparamref name="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description></item>
-    /// <item><description>При ошибки десериализации ответа, <c>PostingFbsUnfulfilledListResponseResult</c> содержит <typeparamref name="JsonDeserializationResultError"/> и <typeparamref name="ApiResultError"/> с пустым <c>ResponseContent</c></description></item>
+    /// <item><description>При неудачном запросе, результат содержит ошибку <typeparamref name="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description></item>
+    /// <item><description>При ошибки десериализации ответа, тело ответа содержит <typeparamref name="JsonDeserializationResultError"/> и <typeparamref name="ApiResultError"/> с пустым <c>ResponseContent</c></description></item>
     /// </list>
     /// </returns>
-    public async Task<Result<ProductInfoPricesResponseDto>> GetProductInfoPrices(ProductInfoPricesRequestDto productInfoPricesRequestDto, CancellationToken cancellationToken = default)
+    public async Task<Result<V5ProductInfoPricesResponseDto>> GetProductInfoPrices(V5ProductInfoPricesRequestDto productInfoPricesRequestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v5/product/info/prices";
-        var result = await PostRequestAsync<ProductInfoPricesRequestDto, ProductInfoPricesResponseDto>(endpoint, productInfoPricesRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V5ProductInfoPricesRequestDto, V5ProductInfoPricesResponseDto>(endpoint, productInfoPricesRequestDto, cancellationToken);
         return result;
     }
 }

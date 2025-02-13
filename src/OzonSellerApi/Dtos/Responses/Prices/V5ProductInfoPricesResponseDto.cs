@@ -2,7 +2,7 @@
 
 namespace OzonSellerApi.Dtos.Responses.Prices;
 // created: 29.01.2025
-public class ProductInfoPricesResponseDto
+public class V5ProductInfoPricesResponseDto
 {
     /// <summary>
     /// Указатель для выборки следующих данных.

@@ -3,15 +3,15 @@
 namespace OzonSellerApi.Dtos.Requests.Stocks;
 
 // created: 29.01.2025
-public class ProductStocksRequestDto
+public class V2ProductStocksRequestDto
 {
     /// <summary>
     /// Информация о товарах на складах.
     /// </summary>
     [JsonPropertyName("stocks")]
-    public List<ProductStocksRequestItem> Stocks { get; set; } = [];
+    public List<V2ProductStocksRequestItem> Stocks { get; set; } = [];
 
-    public class ProductStocksRequestItem
+    public class V2ProductStocksRequestItem
     {
         /// <summary>
         /// Идентификатор товара в системе продавца — артикул.

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace OzonSellerApi.Dtos.Responses.Stocks;
-public class ProductStocksResponseDto
+public class V2ProductStocksResponseDto
 {
     [JsonPropertyName("result")]
     public List<ProductStocksResponseItem> Result { get; set; } = [];

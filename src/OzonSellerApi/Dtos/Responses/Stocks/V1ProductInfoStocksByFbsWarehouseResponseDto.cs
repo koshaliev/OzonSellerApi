@@ -3,7 +3,7 @@
 namespace OzonSellerApi.Dtos.Responses.Stocks;
 
 // created: 29.01.2025
-public class ProductInfoStocksByFbsWarehouseResponseDto
+public class V1ProductInfoStocksByFbsWarehouseResponseDto
 {
     /// <summary>
     /// Результат работы метода.

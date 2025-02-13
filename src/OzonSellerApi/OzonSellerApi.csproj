@@ -9,7 +9,7 @@
     <PackageId>OzonSellerApi</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageVersion>1.0.0-beta</PackageVersion>
+    <PackageVersion>1.0.2-beta</PackageVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

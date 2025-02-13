@@ -3,16 +3,16 @@
 namespace OzonSellerApi.Dtos.Requests.Prices;
 
 // created: 29.01.2025
-public class ProductImportPricesRequestDto
+public class V1ProductImportPricesRequestDto
 {
     /// <summary>
     /// Информация о ценах товаров (не более 1000 элеменетов).
     /// </summary>
     [JsonPropertyName("prices")]
-    public List<ProductImportPricesRequestDtoItem> Prices { get; set; } = [];
+    public List<V1ProductImportPricesRequestDtoItem> Prices { get; set; } = [];
 }
 
-public class ProductImportPricesRequestDtoItem
+public class V1ProductImportPricesRequestDtoItem
 {
     // TODO: NotImportant - перевести в ENUM?
     /// <summary>

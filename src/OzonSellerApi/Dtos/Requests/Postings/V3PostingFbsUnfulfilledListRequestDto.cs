@@ -3,7 +3,7 @@
 namespace OzonSellerApi.Dtos.Requests.Postings;
 
 // created: 29.01.2025
-public class PostingFbsUnfulfilledListRequestDto
+public class V3PostingFbsUnfulfilledListRequestDto
 {
     /// <summary>
     /// Направление сортировки:
@@ -22,7 +22,7 @@ public class PostingFbsUnfulfilledListRequestDto
     /// <para>Чтобы использовать фильтр по дате передачи отправления в доставку, заполните поля <c>DeliveringDateFrom</c> и <c>DeliveringDateTo</c>.</para>
     /// </summary>
     [JsonPropertyName("filter")]
-    public required PostingFbsUnfulfilledListRequestDtoFilter Filter { get; set; }
+    public required V3PostingFbsUnfulfilledListRequestDtoFilter Filter { get; set; }
 
     /// <summary>
     /// Количество значений в ответе: минимум — 1, максимум — 1000.
@@ -40,10 +40,10 @@ public class PostingFbsUnfulfilledListRequestDto
     /// Дополнительные поля, которые нужно добавить в ответ.
     /// </summary>
     [JsonPropertyName("with")]
-    public PostingFbsUnfulfilledListRequestDtoWithData With { get; set; }
+    public required V3PostingFbsUnfulfilledListRequestDtoWithData With { get; set; }
 }
 
-public class PostingFbsUnfulfilledListRequestDtoFilter
+public class V3PostingFbsUnfulfilledListRequestDtoFilter
 {
     /// <summary>
     /// Фильтр по времени, до которого продавцу нужно собрать заказ. Начало периода.
@@ -115,7 +115,7 @@ public class PostingFbsUnfulfilledListRequestDtoFilter
     public List<long> WarehouseId { get; set; } = [];
 }
 
-public class PostingFbsUnfulfilledListRequestDtoWithData
+public class V3PostingFbsUnfulfilledListRequestDtoWithData
 {
     /// <summary>
     /// Добавить в ответ данные аналитики.

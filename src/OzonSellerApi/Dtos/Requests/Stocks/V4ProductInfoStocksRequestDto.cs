@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace OzonSellerApi.Dtos.Requests.Stocks;
 
 // created: 29.01.2025
-public class ProductInfoStocksRequestDto
+public class V4ProductInfoStocksRequestDto
 {
     /// <summary>
     /// Указатель для выборки следующих данных.
@@ -17,7 +17,7 @@ public class ProductInfoStocksRequestDto
     /// Фильтр по товарам.
     /// </summary>
     [JsonPropertyName("filter")]
-    public required ProductInfoStocksRequestDtoFilter Filter { get; set; }
+    public required V4ProductInfoStocksRequestDtoFilter Filter { get; set; }
 
     /// <summary>
     /// Количество значений на странице. Минимум — 1, максимум — 1000.
@@ -29,7 +29,7 @@ public class ProductInfoStocksRequestDto
 /// <summary>
 /// Фильтр по товарам.
 /// </summary>
-public class ProductInfoStocksRequestDtoFilter
+public class V4ProductInfoStocksRequestDtoFilter
 {
     /// <summary>
     /// Фильтр по параметру <c>OfferId</c> (<c>offer_id</c>). Можно передавать список значений.

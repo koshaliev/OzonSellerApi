@@ -3,13 +3,13 @@ using OzonSellerApi.Utils;
 using System.Text.Json.Serialization;
 
 namespace OzonSellerApi.Dtos.Requests.Warehouses;
-public class DeliveryMethodsRequestDto
+public class V1DeliveryMethodsRequestDto
 {
     /// <summary>
     /// Фильтр для поиска методов доставки.
     /// </summary>
     [JsonPropertyName("filter")]
-    public required DeliveryMethodsRequestDtoFilter Filter { get; set; }
+    public required V1DeliveryMethodsRequestDtoFilter Filter { get; set; }
 
     /// <summary>
     /// Количество элементов в ответе. Максимум — 50, минимум — 1.
@@ -27,7 +27,7 @@ public class DeliveryMethodsRequestDto
 /// <summary>
 /// Фильтр для поиска методов доставки.
 /// </summary>
-public class DeliveryMethodsRequestDtoFilter
+public class V1DeliveryMethodsRequestDtoFilter
 {
     /// <summary>
     /// Идентификатор службы доставки.
