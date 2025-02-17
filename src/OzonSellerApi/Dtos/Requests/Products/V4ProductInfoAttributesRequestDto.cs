@@ -34,8 +34,8 @@ public class V4ProductInfoAttributesRequestDto
     /// <summary>
     /// Направление сортировки:
     /// <list type="bullet">
-    /// <item><description><c>asc</c> — по возрастанию</description></item>
-    /// <item><description><c>desc</c> — по убыванию</description></item>
+    /// <item><c>asc</c> — по возрастанию</item>
+    /// <item><c>desc</c> — по убыванию</item>
     /// </list>
     /// </summary>
     [JsonPropertyName("sort_dir")]

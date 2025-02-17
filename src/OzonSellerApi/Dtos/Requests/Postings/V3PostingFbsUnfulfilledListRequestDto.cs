@@ -8,8 +8,8 @@ public class V3PostingFbsUnfulfilledListRequestDto
     /// <summary>
     /// Направление сортировки:
     /// <list type="bullet">
-    /// <item><description><c>asc</c> — по возрастанию</description></item>
-    /// <item><description><c>desc</c> — по убыванию</description></item>
+    /// <item><c>asc</c> — по возрастанию</item>
+    /// <item><c>desc</c> — по убыванию</item>
     /// </list>
     /// </summary>
     [JsonPropertyName("dir")]
@@ -93,16 +93,16 @@ public class V3PostingFbsUnfulfilledListRequestDtoFilter
     /// <summary>
     /// Статус отправления:
     /// <list type="bullet">
-    /// <item><description><c>acceptance_in_progress</c> — идёт приёмка</description></item>
-    /// <item><description><c>awaiting_approve</c> — ожидает подтверждения</description></item>
-    /// <item><description><c>awaiting_packaging</c> — ожидает упаковки</description></item>
-    /// <item><description><c>awaiting_registration</c> — ожидает регистрации</description></item>
-    /// <item><description><c>awaiting_deliver</c> — ожидает отгрузки</description></item>
-    /// <item><description><c>arbitration</c> — арбитраж</description></item>
-    /// <item><description><c>client_arbitration</c> — клиентский арбитраж доставки</description></item>
-    /// <item><description><c>delivering</c> — доставляется</description></item>
-    /// <item><description><c>driver_pickup</c> — у водителя</description></item>
-    /// <item><description><c>not_accepted</c> — не принят на сортировочном центре</description></item>
+    /// <item><c>acceptance_in_progress</c> — идёт приёмка</item>
+    /// <item><c>awaiting_approve</c> — ожидает подтверждения</item>
+    /// <item><c>awaiting_packaging</c> — ожидает упаковки</item>
+    /// <item><c>awaiting_registration</c> — ожидает регистрации</item>
+    /// <item><c>awaiting_deliver</c> — ожидает отгрузки</item>
+    /// <item><c>arbitration</c> — арбитраж</item>
+    /// <item><c>client_arbitration</c> — клиентский арбитраж доставки</item>
+    /// <item><c>delivering</c> — доставляется</item>
+    /// <item><c>driver_pickup</c> — у водителя</item>
+    /// <item><c>not_accepted</c> — не принят на сортировочном центре</item>
     /// </list>
     /// </summary>
     [JsonPropertyName("status")]

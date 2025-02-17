@@ -1,15 +1,17 @@
 ﻿using FluentResults;
 using OzonSellerApi.Dtos.Requests.Warehouses;
 using OzonSellerApi.Dtos.Responses.Warehouses;
-using OzonSellerApi.Extensions;
+using OzonSellerApi.Errors;
 
 namespace OzonSellerApi.Clients;
 /// <summary>
 /// Клиент для взаимодействия со складами и методами доставки.
 /// </summary>
-public class WarehouseClient : BaseApiClient
+public class WarehouseClient
 {
-    public WarehouseClient(HttpClient httpClient, ApiSettings apiSettings) : base(httpClient, apiSettings) { }
+    private readonly BaseApiClient _apiClient;
+
+    public WarehouseClient(BaseApiClient apiClient) => _apiClient = apiClient;
 
     /// <summary>
     /// Список складов.
@@ -18,15 +20,15 @@ public class WarehouseClient : BaseApiClient
     /// <returns>
     /// Возвращает объект типа <see cref="Result{V1WarehousesResponseDto}"/>.
     /// <list type="bullet">
-    /// <item><description>В случае успеха возвращает данные типа <typeparamref name="V1WarehousesResponseDto"/>.</description></item>
-    /// <item><description>При неудачном запросе, результат содержит ошибку <typeparamref name="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description></item>
-    /// <item><description>При ошибки десериализации ответа, результат содержит <typeparamref name="JsonDeserializationResultError"/> и <typeparamref name="ApiResultError"/> с пустым <c>ResponseContent</c></description></item>
+    /// <item>В случае успеха результат содержит данные типа <see cref="V1WarehousesResponseDto"/>.</item>
+    /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
+    /// <item>При ошибки десериализации ответа, результат содержит <see cref="JsonDeserializationResultError"/> и <see cref="ApiResultError"/> с пустым <c>ResponseContent</c></item>
     /// </list>
     /// </returns>
     public async Task<Result<V1WarehousesResponseDto>> GetWarehouses(CancellationToken cancellationToken = default)
     {
         string endpoint = "/v1/warehouse/list";
-        var result = await PostRequestWithEmptyContent<V1WarehousesResponseDto>(endpoint, cancellationToken);
+        var result = await _apiClient.PostRequestWithEmptyContent<V1WarehousesResponseDto>(endpoint, cancellationToken);
         return result;
     }
 
@@ -37,15 +39,15 @@ public class WarehouseClient : BaseApiClient
     /// <returns>
     /// Возвращает объект типа <see cref="Result{V1DeliveryMethodsResponseDto}"/>.
     /// <list type="bullet">
-    /// <item><description>В случае успеха возвращает данные типа <typeparamref name="V1DeliveryMethodsResponseDto"/>.</description></item>
-    /// <item><description>При неудачном запросе, результат содержит ошибку <typeparamref name="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent.</c></description></item>
-    /// <item> <description>При ошибки десериализации ответа, результат содержит <typeparamref name="JsonDeserializationResultError"/> и <typeparamref name="ApiResultError"/> с пустым <c>ResponseContent</c></description></item>
+    /// <item>В случае успеха результат содержит данные типа <see cref="V1DeliveryMethodsResponseDto"/>.</item>
+    /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
+    /// <item> При ошибки десериализации ответа, результат содержит <see cref="JsonDeserializationResultError"/> и <see cref="ApiResultError"/> с пустым <c>ResponseContent</c></item>
     /// </list>
     /// </returns>
     public async Task<Result<V1DeliveryMethodsResponseDto>> GetDeliveryMethodsV1(V1DeliveryMethodsRequestDto deliveryMethodsRequestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v1/delivery-method/list";
-        var result = await PostRequestAsync<V1DeliveryMethodsRequestDto, V1DeliveryMethodsResponseDto>(endpoint, deliveryMethodsRequestDto, cancellationToken);
+        var result = await _apiClient.PostRequestAsync<V1DeliveryMethodsRequestDto, V1DeliveryMethodsResponseDto>(endpoint, deliveryMethodsRequestDto, cancellationToken);
         return result;
     }
 }

@@ -34,12 +34,12 @@ public class V1ProductImportPricesRequestDtoItem
     /// <para>Например, если у вас установлена валюта взаиморасчётов юань, передавайте значение <c>CNY</c>, иначе вернётся ошибка.</para>
     /// <para>Возможные значения:</para>
     /// <list type="bullet">
-    /// <item><description><c>RUB</c> — российский рубль</description></item>
-    /// <item><description><c>BYN</c> — белорусский рубль</description></item>
-    /// <item><description><c>KZT</c> — тенге</description></item>
-    /// <item><description><c>EUR</c> — евро</description></item>
-    /// <item><description><c>USD</c> — доллар США</description></item>
-    /// <item><description><c>CNY</c> — юань</description></item>
+    /// <item><c>RUB</c> — российский рубль</item>
+    /// <item><c>BYN</c> — белорусский рубль</item>
+    /// <item><c>KZT</c> — тенге</item>
+    /// <item><c>EUR</c> — евро</item>
+    /// <item><c>USD</c> — доллар США</item>
+    /// <item><c>CNY</c> — юань</item>
     /// </list>
     /// </summary>
     [JsonPropertyName("currency_code")]
@@ -86,9 +86,9 @@ public class V1ProductImportPricesRequestDtoItem
     /// <summary>
     /// Атрибут для автоприменения стратегий цены:
     /// <list type="bullet">
-    /// <item><description><c>ENABLED</c> — включить</description></item>
-    /// <item><description><c>DISABLED</c> — выключить</description></item>
-    /// <item><description><c>UNKNOWN</c> — ничего не менять, передаётся по умолчанию</description></item>
+    /// <item><c>ENABLED</c> — включить</item>
+    /// <item><c>DISABLED</c> — выключить</item>
+    /// <item><c>UNKNOWN</c> — ничего не менять, передаётся по умолчанию</item>
     /// </list>
     /// <para>Если ранее вы включили автоприменение стратегий цены и не хотите выключать его, передавайте <c>UNKNOWN</c> в следующих запросах.</para>
     /// <para>Если вы передаёте <c>ENABLED</c> в этом параметре, установите значение минимальной цены в параметре <c>MinPrice</c>.</para>
@@ -117,11 +117,11 @@ public class V1ProductImportPricesRequestDtoItem
     /// <summary>
     /// Ставка НДС для товара:
     /// <list type="bullet">
-    /// <item><description><c>0</c> — не облагается НДС</description></item>
-    /// <item><description><c>0.05</c> — 5%</description></item>
-    /// <item><description><c>0.07</c> — 7%</description></item>
-    /// <item><description><c>0.1</c> — 10%</description></item>
-    /// <item><description><c>0.2</c> — 20%</description></item>
+    /// <item><c>0</c> — не облагается НДС</item>
+    /// <item><c>0.05</c> — 5%</item>
+    /// <item><c>0.07</c> — 7%</item>
+    /// <item><c>0.1</c> — 10%</item>
+    /// <item><c>0.2</c> — 20%</item>
     /// </list>
     /// <para>Передавайте значение ставки, актуальное на данный момент.</para>
     /// </summary>

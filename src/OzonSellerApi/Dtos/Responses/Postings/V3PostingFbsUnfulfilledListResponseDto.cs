@@ -279,11 +279,11 @@ public class Posting
         /// <summary>
         /// Тип отмены отправления:
         /// <list type="bullet">
-        /// <item><description><c>seller</c> — отменено продавцом.</description></item>
-        /// <item><description><c>client</c> или <c>customer</c> — отменено покупателем.</description></item>
-        /// <item><description><c>ozon</c> — отменено Ozon.</description></item>
-        /// <item><description><c>system</c> — отменено системой.</description></item>
-        /// <item><description><c>delivery</c> — отменено службой доставки.</description></item>
+        /// <item><c>seller</c> — отменено продавцом.</item>
+        /// <item><c>client</c> или <c>customer</c> — отменено покупателем.</item>
+        /// <item><c>ozon</c> — отменено Ozon.</item>
+        /// <item><c>system</c> — отменено системой.</item>
+        /// <item><c>delivery</c> — отменено службой доставки.</item>
         /// </list>
         /// </summary>
         [JsonPropertyName("cancellation_type")]
@@ -304,11 +304,11 @@ public class Posting
         /// <summary>
         /// Инициатор отмены:
         /// <list type="bullet">
-        /// <item><description>Продавец</description></item>
-        /// <item><description>Клиент или покупатель</description></item>
-        /// <item><description>Ozon</description></item>
-        /// <item><description>Система</description></item>
-        /// <item><description>Служба доставки</description></item>
+        /// <item>Продавец</item>
+        /// <item>Клиент или покупатель</item>
+        /// <item>Ozon</item>
+        /// <item>Система</item>
+        /// <item>Служба доставки</item>
         /// </list>
         [JsonPropertyName("cancellation_initiator")]
         public string CancellationInitiator { get; set; } = string.Empty;

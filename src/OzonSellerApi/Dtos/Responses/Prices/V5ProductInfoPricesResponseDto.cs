@@ -230,12 +230,12 @@ public class V5ProductInfoPricesResponseDto
             /// Валюта ваших цен. Совпадает с валютой, которая установлена в настройках личного кабинета.
             /// <para>Возможные значения:</para>
             /// <list type="bullet">
-            /// <item><description><c>RUB</c> — российский рубль</description></item>
-            /// <item><description><c>BYN</c> — белорусский рубль</description></item>
-            /// <item><description><c>KZT</c> — тенге</description></item>
-            /// <item><description><c>EUR</c> — евро</description></item>
-            /// <item><description><c>USD</c> — доллар США</description></item>
-            /// <item><description><c>CNY</c> — юань</description></item>
+            /// <item><c>RUB</c> — российский рубль</item>
+            /// <item><c>BYN</c> — белорусский рубль</item>
+            /// <item><c>KZT</c> — тенге</item>
+            /// <item><c>EUR</c> — евро</item>
+            /// <item><c>USD</c> — доллар США</item>
+            /// <item><c>CNY</c> — юань</item>
             /// </list>
             /// </summary>
             [JsonPropertyName("currency_code")]
