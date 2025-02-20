@@ -14,7 +14,8 @@ public class JsonDeserializationResultError : Error
     /// </summary>
     public string ResponseContentAsString { get; set; }
 
-    public JsonDeserializationResultError(string responseContentAsString, HttpStatusCode statusCode)
+    public JsonDeserializationResultError(string exceptionMessage, string responseContentAsString, HttpStatusCode statusCode) 
+        : base(exceptionMessage)
     {
         StatusCode = statusCode;
         ResponseContentAsString = responseContentAsString;

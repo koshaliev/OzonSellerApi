@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using Microsoft.Extensions.Logging;
 using OzonSellerApi.Dtos.Requests.Stocks;
 using OzonSellerApi.Dtos.Responses.Stocks;
 using OzonSellerApi.Errors;
@@ -7,11 +8,9 @@ namespace OzonSellerApi.Clients;
 /// <summary>
 /// Клиент для взаимодействия с остатками товара на складаха.
 /// </summary>
-public class StockClient
+public class StockClient : BaseApiClient
 {
-    private readonly BaseApiClient _apiClient;
-
-    public StockClient(BaseApiClient apiClient) => _apiClient = apiClient;
+    public StockClient(HttpClient httpClient, ILogger<StockClient> logger) : base(httpClient, logger) { }
 
     /// <summary>
     /// Позволяет изменить информацию о количестве товара в наличии.
@@ -30,13 +29,13 @@ public class StockClient
     /// <list type="bullet">
     /// <item>В случае успеха результат содержит данные типа <see cref="V2ProductStocksResponseDto"/>.</item>
     /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит <see cref="JsonDeserializationResultError"/> и <see cref="ApiResultError"/> с пустым <c>ResponseContent</c></item>
+    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
     /// </list>
     /// </returns>
     public async Task<Result<V2ProductStocksResponseDto>> UpdateProductStocksOnWarehousesV2(V2ProductStocksRequestDto productStocksRequestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v2/products/stocks";
-        var result = await _apiClient.PostRequestAsync<V2ProductStocksRequestDto, V2ProductStocksResponseDto>(endpoint, productStocksRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V2ProductStocksRequestDto, V2ProductStocksResponseDto>(endpoint, productStocksRequestDto, cancellationToken);
         return result;
     }
 
@@ -55,13 +54,13 @@ public class StockClient
     /// <list type="bullet">
     /// <item>В случае успеха результат содержит данные типа <see cref="V4ProductInfoStocksResponseDto"/>.</item>
     /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит <see cref="JsonDeserializationResultError"/> и <see cref="ApiResultError"/> с пустым <c>ResponseContent</c></item>
+    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
     /// </list>
     /// </returns>
     public async Task<Result<V4ProductInfoStocksResponseDto>> GetProductInfoStocksV4(V4ProductInfoStocksRequestDto productInfoStocksRequestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v4/product/info/stocks";
-        var result = await _apiClient.PostRequestAsync<V4ProductInfoStocksRequestDto, V4ProductInfoStocksResponseDto>(endpoint, productInfoStocksRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V4ProductInfoStocksRequestDto, V4ProductInfoStocksResponseDto>(endpoint, productInfoStocksRequestDto, cancellationToken);
         return result;
     }
 
@@ -76,13 +75,13 @@ public class StockClient
     /// <list type="bullet">
     /// <item>В случае успеха результат содержит данные типа <see cref="V1ProductInfoStocksByFbsWarehouseResponseDto"/>.</item>
     /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит <see cref="JsonDeserializationResultError"/> и <see cref="ApiResultError"/> с пустым <c>ResponseContent</c></item>
+    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
     /// </list>
     /// </returns>
     public async Task<Result<V1ProductInfoStocksByFbsWarehouseResponseDto>> GetProductInfoStocksByFbsWarehouse(V1ProductInfoStocksByFbsWarehouseRequestDto productInfoStocksByFbsWarehouseRequestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v1/product/info/stocks-by-warehouse/fbs";
-        var result = await _apiClient.PostRequestAsync<V1ProductInfoStocksByFbsWarehouseRequestDto, V1ProductInfoStocksByFbsWarehouseResponseDto>(endpoint, productInfoStocksByFbsWarehouseRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V1ProductInfoStocksByFbsWarehouseRequestDto, V1ProductInfoStocksByFbsWarehouseResponseDto>(endpoint, productInfoStocksByFbsWarehouseRequestDto, cancellationToken);
         return result;
     }
 }
