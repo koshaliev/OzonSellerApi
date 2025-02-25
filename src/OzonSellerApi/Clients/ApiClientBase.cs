@@ -5,8 +5,6 @@ using OzonSellerApi.Errors;
 using OzonSellerApi.Extensions;
 using System.Net.Http.Json;
 using System.Text.Json;
-using static OzonSellerApi.Dtos.Responses.Products.V3ProductInfoListResponseDto.ProductInfoItem.ProductError.ErrorTexts;
-using static OzonSellerApi.Dtos.Responses.Warehouses.V1WarehousesResponseDto;
 
 namespace OzonSellerApi.Clients;
 /// <summary>

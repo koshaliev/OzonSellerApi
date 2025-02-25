@@ -9,7 +9,7 @@
     <PackageId>OzonSellerApi</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageVersion>1.0.6-beta</PackageVersion>
+    <PackageVersion>1.0.61-beta</PackageVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageProjectUrl>https://github.com/koshaliev/OzonSellerApi</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/koshaliev/OzonSellerApi</RepositoryUrl>
