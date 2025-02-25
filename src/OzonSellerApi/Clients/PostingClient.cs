@@ -5,7 +5,7 @@ using OzonSellerApi.Dtos.Responses.Postings;
 using OzonSellerApi.Errors;
 
 namespace OzonSellerApi.Clients;
-public class PostingClient : BaseApiClient
+public class PostingClient : ApiClientBase
 {
     public PostingClient(HttpClient httpClient, ILogger<PostingClient> logger) : base(httpClient, logger) { }
 

@@ -8,7 +8,7 @@ namespace OzonSellerApi.Clients;
 /// <summary>
 /// Клиент для взаимодействия с ценами.
 /// </summary>
-public class PriceClient : BaseApiClient
+public class PriceClient : ApiClientBase
 {
     public PriceClient(HttpClient httpClient, ILogger<PriceClient> logger) : base(httpClient, logger) { }
 

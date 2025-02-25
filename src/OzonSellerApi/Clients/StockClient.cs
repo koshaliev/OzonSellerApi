@@ -8,7 +8,7 @@ namespace OzonSellerApi.Clients;
 /// <summary>
 /// Клиент для взаимодействия с остатками товара на складаха.
 /// </summary>
-public class StockClient : BaseApiClient
+public class StockClient : ApiClientBase
 {
     public StockClient(HttpClient httpClient, ILogger<StockClient> logger) : base(httpClient, logger) { }
 

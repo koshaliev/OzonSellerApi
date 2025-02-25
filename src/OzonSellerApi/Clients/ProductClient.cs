@@ -9,7 +9,7 @@ namespace OzonSellerApi.Clients;
 /// Клиент для взаимодействия с товарами.
 /// </summary>
 
-public class ProductClient : BaseApiClient
+public class ProductClient : ApiClientBase
 {
     public ProductClient(HttpClient httpClient, ILogger<ProductClient> logger) : base(httpClient, logger) { }
 

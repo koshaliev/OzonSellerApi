@@ -5,18 +5,20 @@ using OzonSellerApi.Errors;
 using OzonSellerApi.Extensions;
 using System.Net.Http.Json;
 using System.Text.Json;
+using static OzonSellerApi.Dtos.Responses.Products.V3ProductInfoListResponseDto.ProductInfoItem.ProductError.ErrorTexts;
+using static OzonSellerApi.Dtos.Responses.Warehouses.V1WarehousesResponseDto;
 
 namespace OzonSellerApi.Clients;
 /// <summary>
 /// Базовый клиент для работы с Ozon Seller API.
 /// <para>Конструктор устанавливает значения для заголовков запроса <c>Client-Id</c> и <c>Api-Key</c> на основе <seealso cref="ApiSettings"/>.</para>
 /// </summary>
-public abstract class BaseApiClient
+public abstract class ApiClientBase
 {
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
-    public BaseApiClient(HttpClient httpClient, ILogger logger)
+    public ApiClientBase(HttpClient httpClient, ILogger logger)
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -38,6 +40,7 @@ public abstract class BaseApiClient
     /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
     /// <item>Если ответ содержит null, то результат содержит ошибку <see cref="NullResponseContentError"/>.</item>
     /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
+    /// <item>При отмене операции, результат содержит ошибку <see cref="OperationCanceledError"/></item>
     /// </list>
     /// </returns>
     protected async Task<Result<TResponseDto>> PostRequestAsync<TRequestDto, TResponseDto>(string endpoint, TRequestDto? requestDto, CancellationToken cancellationToken = default)
@@ -86,7 +89,7 @@ public abstract class BaseApiClient
             {
                 string content = await response.Content.ReadAsStringAsync();
                 _logger.LogError(ex, $"Ошибка сериализации ответа. Код состояния: {response.StatusCode}. Тело ответа: {content}", response.StatusCode, content);
-                return Result.Fail<TResponseDto>(new JsonDeserializationResultError(ex.Message, content, response.StatusCode).CausedBy(ex));
+                return Result.Fail<TResponseDto>(new JsonDeserializationResultError(ex.Message, content, response.StatusCode));
             }
         }
         catch (ArgumentNullException ex)
@@ -97,18 +100,15 @@ public abstract class BaseApiClient
         catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
         {
             _logger.LogWarning(ex, $"Запрос на {endpoint} был отменен.", endpoint);
-            return Result.Fail("Операция отменена.");
+            return Result.Fail(new OperationCanceledError($"Запрос на {endpoint} был отменен.", ex));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Непредвиденная ошибка при запросе на {endpoint}.", endpoint);
-            return Result.Fail<TResponseDto>("Непредвиденная ошибка.");
+            return Result.Fail<TResponseDto>(new Error($"Непредвиденное исключение. Сообщение исключения: {ex.Message}").CausedBy(ex));
         }
     }
 
-    /// <summary>
-    /// Базовый метод для всех POST-запросов на эндроинты Ozon Seller API (для запросов с пустым телом).
-    /// </summary>
     protected async Task<Result<TResponseDto>> PostRequestWithEmptyContentAsync<TResponseDto>(string endpoint, CancellationToken cancellationToken)
     {
         return await PostRequestAsync<object, TResponseDto>(endpoint, null, cancellationToken);
