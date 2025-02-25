@@ -131,10 +131,10 @@ public class V1WarehousesResponseDto
             public bool FirstMileIsChanging { get; set; }
 
             /// <summary>
-            /// Тип первой мили — DropOff или Pickup.
+            /// Тип первой мили — DropOff, Pickup или пустая строка, если не предусмотрено.
             /// </summary>
             [JsonPropertyName("first_mile_type")]
-            public WarehouseFirstMileType FirstMileType { get; set; }
+            public string FirstMileType { get; set; } = string.Empty;
         }
     }
 }

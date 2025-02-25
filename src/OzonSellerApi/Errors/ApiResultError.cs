@@ -4,6 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
 namespace OzonSellerApi.Errors;
+
+/// <summary>
+/// Ошибка, предназначенная для хранения тела ответа неудачного запроса.
+/// </summary>
 public class ApiResultError : Error
 {
     /// <summary>
