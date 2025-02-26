@@ -9,7 +9,7 @@
     <PackageId>OzonSellerApi</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageVersion>1.0.61-beta</PackageVersion>
+    <PackageVersion>1.1.0-beta</PackageVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageProjectUrl>https://github.com/koshaliev/OzonSellerApi</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/koshaliev/OzonSellerApi</RepositoryUrl>
@@ -17,8 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentResults" Version="3.16.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.2" />
-      <None Include="README.md" Pack="true" PackagePath="\" />
+      <None Include="..\..\README.md" Pack="true" PackagePath=""/>
   </ItemGroup>
 </Project>

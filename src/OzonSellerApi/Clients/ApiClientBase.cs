@@ -1,8 +1,4 @@
-﻿using FluentResults;
-using Microsoft.Extensions.Logging;
-using OzonSellerApi.Dtos.Responses.Common;
-using OzonSellerApi.Errors;
-using OzonSellerApi.Extensions;
+﻿using OzonSellerApi.Exceptions;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -14,12 +10,10 @@ namespace OzonSellerApi.Clients;
 public abstract class ApiClientBase
 {
     private readonly HttpClient _httpClient;
-    private readonly ILogger _logger;
 
-    public ApiClientBase(HttpClient httpClient, ILogger logger)
+    public ApiClientBase(HttpClient httpClient)
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _httpClient.BaseAddress = new Uri("https://api-seller.ozon.ru", UriKind.Absolute);
     }
 
@@ -32,83 +26,38 @@ public abstract class ApiClientBase
     /// <param name="requestDto">Тело запроса.</param>
     /// <param name="cancellationToken"></param>
     /// <returns>
-    /// Возвращает объект типа <see cref="Result{TResponseDto}"/>.
-    /// <list type="bullet">
-    /// <item>В случае успеха результат содержит данные типа <see cref="TResponseDto"/>.</item>
-    /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>Если ответ содержит null, то результат содержит ошибку <see cref="NullResponseContentError"/>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
-    /// <item>При отмене операции, результат содержит ошибку <see cref="OperationCanceledError"/></item>
-    /// </list>
+    /// <typeparamref name="TResponseDto"/>
     /// </returns>
-    protected async Task<Result<TResponseDto>> PostRequestAsync<TRequestDto, TResponseDto>(string endpoint, TRequestDto? requestDto, CancellationToken cancellationToken = default)
+    /// <exception cref="ApiFailureResponseException">Возникает при неудачном запросе.</exception>
+    /// <exception cref="NullResponseException">Может возникнуть, если Тела ответа содержит null.</exception>
+    /// <exception cref="JsonException"/>
+    /// <exception cref="ArgumentNullException">Может возникнуть при сериализации <c>Тела запроса</c>.</exception>
+    /// <exception cref="OperationCanceledException"/>
+    protected async Task<TResponseDto> PostRequestAsync<TRequestDto, TResponseDto>(string endpoint, TRequestDto? requestDto, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            HttpResponseMessage response;
-            if (requestDto == null)
-            {
-                response = await _httpClient.PostAsync(endpoint, null, cancellationToken);
-            }
-            else
-            {
-                response = await _httpClient.PostAsJsonAsync(endpoint, requestDto, cancellationToken);
-            }
+        HttpResponseMessage response = await _httpClient.PostAsJsonAsync(endpoint, requestDto, cancellationToken);
 
-            try
-            {
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorContent = await response.Content.ReadFromJsonAsync<FailureResponseDto>(cancellationToken);
-                    if (errorContent == null)
-                    {
-                        _logger.LogError($"Получен null при десериализации ответа неудачного запроса на {endpoint}. Код состояния: {response.StatusCode}.", endpoint, response.StatusCode);
-                        return Result.Fail<TResponseDto>(new NullResponseContentError(response.StatusCode));
-                    }
-                    else
-                    {
-                        _logger.LogWarning($"Ошибка при вызове Ozon Seller API на {endpoint}. Код состояния: {response.StatusCode}. Тело ответа: {errorContent}", endpoint, response.StatusCode, errorContent);
-                        return Result.Fail<TResponseDto>(new ApiResultError(errorContent, response.StatusCode));
-                    }
-                }
+        if (!response.IsSuccessStatusCode)
+        {
+            var requestUriString = _httpClient.BaseAddress + endpoint;
+            throw new ApiFailureResponseException(response.StatusCode, response.Content, requestUriString);
+        }
 
-                var content = await response.Content.ReadFromJsonAsync<TResponseDto>(cancellationToken);
-                if (content == null)
-                {
-                    _logger.LogError($"Получен null при десериализации ответа удачного запроса на {endpoint}. Код состояния: {response.StatusCode}.", endpoint, response.StatusCode);
-                    return Result.Fail<TResponseDto>(new NullResponseContentError(response.StatusCode));
-                }
-                else
-                {
-                    return Result.Ok(content);
-                }
-            }
-            catch (JsonException ex)
-            {
-                string content = await response.Content.ReadAsStringAsync();
-                _logger.LogError(ex, $"Ошибка сериализации ответа. Код состояния: {response.StatusCode}. Тело ответа: {content}", response.StatusCode, content);
-                return Result.Fail<TResponseDto>(new JsonDeserializationResultError(ex.Message, content, response.StatusCode));
-            }
-        }
-        catch (ArgumentNullException ex)
-        {
-            _logger.LogError(ex, "Передан аргумент со значением null.");
-            return Result.Fail($"Передан аргумент со значением null: {ex.Message}");
-        }
-        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
-        {
-            _logger.LogWarning(ex, $"Запрос на {endpoint} был отменен.", endpoint);
-            return Result.Fail(new OperationCanceledError($"Запрос на {endpoint} был отменен.", ex));
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Непредвиденная ошибка при запросе на {endpoint}.", endpoint);
-            return Result.Fail<TResponseDto>(new Error($"Непредвиденное исключение. Сообщение исключения: {ex.Message}").CausedBy(ex));
-        }
+        var responseContent = await response.Content.ReadFromJsonAsync<TResponseDto>(cancellationToken);
+        return responseContent ?? throw new NullResponseException();
     }
 
-    protected async Task<Result<TResponseDto>> PostRequestWithEmptyContentAsync<TResponseDto>(string endpoint, CancellationToken cancellationToken)
+    protected async Task<TResponseDto> PostRequestWithEmptyContentAsync<TResponseDto>(string endpoint, CancellationToken cancellationToken)
     {
-        return await PostRequestAsync<object, TResponseDto>(endpoint, null, cancellationToken);
+        HttpResponseMessage response = await _httpClient.PostAsync(endpoint, null, cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var requestUriString = _httpClient.BaseAddress + endpoint;
+            throw new ApiFailureResponseException(response.StatusCode, response.Content, requestUriString);
+        }
+
+        var responseContent = await response.Content.ReadFromJsonAsync<TResponseDto>(cancellationToken);
+        return responseContent ?? throw new NullResponseException();
     }
 }

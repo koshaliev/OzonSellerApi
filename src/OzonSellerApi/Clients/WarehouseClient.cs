@@ -1,8 +1,7 @@
-﻿using FluentResults;
-using Microsoft.Extensions.Logging;
+﻿using OzonSellerApi.Exceptions;
+using System.Text.Json;
 using OzonSellerApi.Dtos.Requests.Warehouses;
 using OzonSellerApi.Dtos.Responses.Warehouses;
-using OzonSellerApi.Errors;
 
 namespace OzonSellerApi.Clients;
 /// <summary>
@@ -10,21 +9,21 @@ namespace OzonSellerApi.Clients;
 /// </summary>
 public class WarehouseClient : ApiClientBase
 {
-    public WarehouseClient(HttpClient httpClient, ILogger<ILogger> logger) : base(httpClient, logger) { }
+    public WarehouseClient(HttpClient httpClient) : base(httpClient) { }
 
     /// <summary>
     /// Список складов.
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns>
-    /// Возвращает объект типа <see cref="Result{V1WarehousesResponseDto}"/>.
-    /// <list type="bullet">
-    /// <item>В случае успеха результат содержит данные типа <see cref="V1WarehousesResponseDto"/>.</item>
-    /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
-    /// </list>
+    /// <see cref="V1WarehousesResponseDto"/>
     /// </returns>
-    public async Task<Result<V1WarehousesResponseDto>> GetWarehousesV1(CancellationToken cancellationToken = default)
+    /// <exception cref="ApiFailureResponseException">Возникает при неудачном запросе.</exception>
+    /// <exception cref="NullResponseException">Может возникнуть, если Тела ответа содержит null.</exception>
+    /// <exception cref="JsonException"/>
+    /// <exception cref="ArgumentNullException">Может возникнуть при сериализации <c>Тела запроса</c>.</exception>
+    /// <exception cref="OperationCanceledException"/>
+    public async Task<V1WarehousesResponseDto> GetWarehousesV1(CancellationToken cancellationToken = default)
     {
         string endpoint = "/v1/warehouse/list";
         var result = await PostRequestWithEmptyContentAsync<V1WarehousesResponseDto>(endpoint, cancellationToken);  
@@ -34,19 +33,19 @@ public class WarehouseClient : ApiClientBase
     /// <summary>
     /// Список методов доставки склада.
     /// </summary>
-    /// <param name="deliveryMethodsRequestDto">Тело запроса.</param>
+    /// <param name="requestDto">Тело запроса.</param>
     /// <returns>
-    /// Возвращает объект типа <see cref="Result{V1DeliveryMethodsResponseDto}"/>.
-    /// <list type="bullet">
-    /// <item>В случае успеха результат содержит данные типа <see cref="V1DeliveryMethodsResponseDto"/>.</item>
-    /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
-    /// </list>
+    /// <see cref="V1DeliveryMethodsResponseDto"/>
     /// </returns>
-    public async Task<Result<V1DeliveryMethodsResponseDto>> GetDeliveryMethodsV1(V1DeliveryMethodsRequestDto deliveryMethodsRequestDto, CancellationToken cancellationToken = default)
+    /// <exception cref="ApiFailureResponseException">Возникает при неудачном запросе.</exception>
+    /// <exception cref="NullResponseException">Может возникнуть, если Тела ответа содержит null.</exception>
+    /// <exception cref="JsonException"/>
+    /// <exception cref="ArgumentNullException">Может возникнуть при сериализации <c>Тела запроса</c>.</exception>
+    /// <exception cref="OperationCanceledException"/>
+    public async Task<V1DeliveryMethodsResponseDto> GetDeliveryMethodsV1(V1DeliveryMethodsRequestDto requestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v1/delivery-method/list";
-        var result = await PostRequestAsync<V1DeliveryMethodsRequestDto, V1DeliveryMethodsResponseDto>(endpoint, deliveryMethodsRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V1DeliveryMethodsRequestDto, V1DeliveryMethodsResponseDto>(endpoint, requestDto, cancellationToken);
         return result;
     }
 }

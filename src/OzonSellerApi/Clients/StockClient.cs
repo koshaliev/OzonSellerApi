@@ -1,8 +1,7 @@
-﻿using FluentResults;
-using Microsoft.Extensions.Logging;
+﻿using OzonSellerApi.Exceptions;
+using System.Text.Json;
 using OzonSellerApi.Dtos.Requests.Stocks;
 using OzonSellerApi.Dtos.Responses.Stocks;
-using OzonSellerApi.Errors;
 
 namespace OzonSellerApi.Clients;
 /// <summary>
@@ -10,7 +9,7 @@ namespace OzonSellerApi.Clients;
 /// </summary>
 public class StockClient : ApiClientBase
 {
-    public StockClient(HttpClient httpClient, ILogger<StockClient> logger) : base(httpClient, logger) { }
+    public StockClient(HttpClient httpClient) : base(httpClient) { }
 
     /// <summary>
     /// Позволяет изменить информацию о количестве товара в наличии.
@@ -22,20 +21,20 @@ public class StockClient : ApiClientBase
     /// <para>Вы можете задать наличие товара только после того, как его статус сменится на price_sent.</para>
     /// <para>⚠ Остатки крупногабаритных товаров можно обновлять только на предназначенных для них складах.</para>
     /// </remarks>
-    /// <param name="productStocksRequestDto">Тело запроса.</param>
+    /// <param name="requestDto">Тело запроса.</param>
     /// <param name="cancellationToken"></param>
     /// <returns>
-    /// Объект типа <see cref="Result{V2ProductStocksResponseDto}"/>.
-    /// <list type="bullet">
-    /// <item>В случае успеха результат содержит данные типа <see cref="V2ProductStocksResponseDto"/>.</item>
-    /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
-    /// </list>
+    /// <see cref="V2ProductStocksResponseDto"/>
     /// </returns>
-    public async Task<Result<V2ProductStocksResponseDto>> UpdateProductStocksOnWarehousesV2(V2ProductStocksRequestDto productStocksRequestDto, CancellationToken cancellationToken = default)
+    /// <exception cref="ApiFailureResponseException">Возникает при неудачном запросе.</exception>
+    /// <exception cref="NullResponseException">Может возникнуть, если Тела ответа содержит null.</exception>
+    /// <exception cref="JsonException"/>
+    /// <exception cref="ArgumentNullException">Может возникнуть при сериализации <c>Тела запроса</c>.</exception>
+    /// <exception cref="OperationCanceledException"/>
+    public async Task<V2ProductStocksResponseDto> UpdateProductStocksOnWarehousesV2(V2ProductStocksRequestDto requestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v2/products/stocks";
-        var result = await PostRequestAsync<V2ProductStocksRequestDto, V2ProductStocksResponseDto>(endpoint, productStocksRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V2ProductStocksRequestDto, V2ProductStocksResponseDto>(endpoint, requestDto, cancellationToken);
         return result;
     }
 
@@ -47,20 +46,20 @@ public class StockClient : ApiClientBase
     /// <item>сĸольĸо зарезервировано поĸупателями.</item>
     /// </list>
     /// </summary>
-    /// <param name="productInfoStocksRequestDto">Тело запроса.</param>
+    /// <param name="requestDto">Тело запроса.</param>
     /// <param name="cancellationToken"></param>
     /// <returns>
-    /// Объект типа <see cref="Result{V4ProductInfoStocksResponseDto}"/>.
-    /// <list type="bullet">
-    /// <item>В случае успеха результат содержит данные типа <see cref="V4ProductInfoStocksResponseDto"/>.</item>
-    /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
-    /// </list>
+    /// <see cref="V4ProductInfoStocksResponseDto"/>
     /// </returns>
-    public async Task<Result<V4ProductInfoStocksResponseDto>> GetProductInfoStocksV4(V4ProductInfoStocksRequestDto productInfoStocksRequestDto, CancellationToken cancellationToken = default)
+    /// <exception cref="ApiFailureResponseException">Возникает при неудачном запросе.</exception>
+    /// <exception cref="NullResponseException">Может возникнуть, если Тела ответа содержит null.</exception>
+    /// <exception cref="JsonException"/>
+    /// <exception cref="ArgumentNullException">Может возникнуть при сериализации <c>Тела запроса</c>.</exception>
+    /// <exception cref="OperationCanceledException"/>
+    public async Task<V4ProductInfoStocksResponseDto> GetProductInfoStocksV4(V4ProductInfoStocksRequestDto requestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v4/product/info/stocks";
-        var result = await PostRequestAsync<V4ProductInfoStocksRequestDto, V4ProductInfoStocksResponseDto>(endpoint, productInfoStocksRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V4ProductInfoStocksRequestDto, V4ProductInfoStocksResponseDto>(endpoint, requestDto, cancellationToken);
         return result;
     }
 
@@ -68,20 +67,20 @@ public class StockClient : ApiClientBase
     /// <summary>
     /// Информация об остатках на складах продавца (FBS и rFBS).
     /// </summary>
-    /// <param name="productInfoStocksByFbsWarehouseRequestDto">Тело запроса</param>
+    /// <param name="requestDto">Тело запроса</param>
     /// <param name="cancellationToken"></param>
     /// <returns>
-    /// Объект типа <see cref="Result{V1ProductInfoStocksByFbsWarehouseResponseDto}"/>.
-    /// <list type="bullet">
-    /// <item>В случае успеха результат содержит данные типа <see cref="V1ProductInfoStocksByFbsWarehouseResponseDto"/>.</item>
-    /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
-    /// </list>
+    /// <see cref="V1ProductInfoStocksByFbsWarehouseResponseDto"/>
     /// </returns>
-    public async Task<Result<V1ProductInfoStocksByFbsWarehouseResponseDto>> GetProductInfoStocksByFbsWarehouse(V1ProductInfoStocksByFbsWarehouseRequestDto productInfoStocksByFbsWarehouseRequestDto, CancellationToken cancellationToken = default)
+    /// <exception cref="ApiFailureResponseException">Возникает при неудачном запросе.</exception>
+    /// <exception cref="NullResponseException">Может возникнуть, если Тела ответа содержит null.</exception>
+    /// <exception cref="JsonException"/>
+    /// <exception cref="ArgumentNullException">Может возникнуть при сериализации <c>Тела запроса</c>.</exception>
+    /// <exception cref="OperationCanceledException"/>
+    public async Task<V1ProductInfoStocksByFbsWarehouseResponseDto> GetProductInfoStocksByFbsWarehouse(V1ProductInfoStocksByFbsWarehouseRequestDto requestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v1/product/info/stocks-by-warehouse/fbs";
-        var result = await PostRequestAsync<V1ProductInfoStocksByFbsWarehouseRequestDto, V1ProductInfoStocksByFbsWarehouseResponseDto>(endpoint, productInfoStocksByFbsWarehouseRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V1ProductInfoStocksByFbsWarehouseRequestDto, V1ProductInfoStocksByFbsWarehouseResponseDto>(endpoint, requestDto, cancellationToken);
         return result;
     }
 }

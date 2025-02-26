@@ -1,8 +1,7 @@
-﻿using FluentResults;
-using Microsoft.Extensions.Logging;
+﻿using OzonSellerApi.Exceptions;
+using System.Text.Json;
 using OzonSellerApi.Dtos.Requests.Prices;
 using OzonSellerApi.Dtos.Responses.Prices;
-using OzonSellerApi.Errors;
 
 namespace OzonSellerApi.Clients;
 /// <summary>
@@ -10,28 +9,27 @@ namespace OzonSellerApi.Clients;
 /// </summary>
 public class PriceClient : ApiClientBase
 {
-    public PriceClient(HttpClient httpClient, ILogger<PriceClient> logger) : base(httpClient, logger) { }
+    public PriceClient(HttpClient httpClient) : base(httpClient) { }
 
     /// <summary>
     /// Позволяет изменить цену одного или нескольких товаров. Цену каждого товара можно обновлять не больше 10 раз в час. Чтобы сбросить <c>OldPrice</c> (<c>old_price</c>), поставьте <c>0</c> у этого параметра.
     /// <para>Если у товара установлена минимальная цена и включено автоприменение в акции, отключите его и обновите минимальную цену, иначе вернётся ошибка <c>action_price_enabled_min_price_missing</c>.</para>
     /// </summary>
-    /// <remarks>За раз можно обновить остатки у 1000 товаров (ограничение Ozon Seller API).
-    /// </remarks>
-    /// <param name=""></param>
+    /// <remarks>⚠ За раз можно обновить остатки у 1000 товаров (ограничение Ozon Seller API).</remarks>
+    /// <param name="requestDto">Тело запроса.</param>
     /// <param name="cancellationToken"></param>
     /// <returns>
-    /// Возвращает объект типа <see cref="Result{V1ProductImportPricesResponseDto}"/>.
-    /// <list type="bullet">
-    /// <item>В случае успеха результат содержит данные типа <see cref="V1ProductImportPricesResponseDto"/>.</item>
-    /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
-    /// </list>
+    /// <see cref="V1ProductImportPricesResponseDto"/>
     /// </returns>
-    public async Task<Result<V1ProductImportPricesResponseDto>> UpdateProductPrices(V1ProductImportPricesRequestDto productImportPricesRequestDto, CancellationToken cancellationToken = default)
+    /// <exception cref="ApiFailureResponseException">Возникает при неудачном запросе.</exception>
+    /// <exception cref="NullResponseException">Может возникнуть, если Тела ответа содержит null.</exception>
+    /// <exception cref="JsonException"/>
+    /// <exception cref="ArgumentNullException">Может возникнуть при сериализации <c>Тела запроса</c>.</exception>
+    /// <exception cref="OperationCanceledException"/>
+    public async Task<V1ProductImportPricesResponseDto> UpdateProductPrices(V1ProductImportPricesRequestDto requestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v1/product/import/prices";
-        var result = await PostRequestAsync<V1ProductImportPricesRequestDto, V1ProductImportPricesResponseDto>(endpoint, productImportPricesRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V1ProductImportPricesRequestDto, V1ProductImportPricesResponseDto>(endpoint, requestDto, cancellationToken);
         return result;
     }
 
@@ -39,20 +37,20 @@ public class PriceClient : ApiClientBase
     /// <summary>
     /// Получить информацию о цене товара.
     /// </summary>
-    /// <param name="productInfoPricesRequestDto">Тело запроса.</param>
+    /// <param name="requestDto">Тело запроса.</param>
     /// <param name="cancellationToken"></param>
     /// <returns>
-    /// Возвращает объект типа <see cref="Result{ProductInfoPricesResponseDto}"/>.
-    /// <list type="bullet">
-    /// <item>В случае успеха результат содержит данные типа <see cref="ProductInfoPricesResponseDto"/>.</item>
-    /// <item>При неудачном запросе, результат содержит ошибку <see cref="ApiResultError"/>. Тело ответа хранится в <c>ResponseContent</c>.</item>
-    /// <item>При ошибки десериализации ответа, результат содержит ошибку <see cref="JsonDeserializationResultError"/>.</item>
-    /// </list>
+    /// <see cref="V5ProductInfoPricesResponseDto"/>
     /// </returns>
-    public async Task<Result<V5ProductInfoPricesResponseDto>> GetProductInfoPrices(V5ProductInfoPricesRequestDto productInfoPricesRequestDto, CancellationToken cancellationToken = default)
+    /// <exception cref="ApiFailureResponseException">Возникает при неудачном запросе.</exception>
+    /// <exception cref="NullResponseException">Может возникнуть, если Тела ответа содержит null.</exception>
+    /// <exception cref="JsonException"/>
+    /// <exception cref="ArgumentNullException">Может возникнуть при сериализации <c>Тела запроса</c>.</exception>
+    /// <exception cref="OperationCanceledException"/>
+    public async Task<V5ProductInfoPricesResponseDto> GetProductInfoPrices(V5ProductInfoPricesRequestDto requestDto, CancellationToken cancellationToken = default)
     {
         string endpoint = "/v5/product/info/prices";
-        var result = await PostRequestAsync<V5ProductInfoPricesRequestDto, V5ProductInfoPricesResponseDto>(endpoint, productInfoPricesRequestDto, cancellationToken);
+        var result = await PostRequestAsync<V5ProductInfoPricesRequestDto, V5ProductInfoPricesResponseDto>(endpoint, requestDto, cancellationToken);
         return result;
     }
 }
